@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>حسابات الشركة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1f0;--card:#fff;--ink:#14231f;--mut:#5d6f6a;--line:#d5dcd9;--pri:#0f5c4d;--pri2:#e6f1ee;--acc:#e8a317;--bad:#b3261e;--good:#0d7a4f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1614;--card:#15221f;--ink:#e8f0ed;--mut:#93a7a1;--line:#28403a;--pri:#4fc4a6;--pri2:#173630;--bad:#ff8a80;--good:#5fd6a0}}
+:root[data-theme="dark"]{--bg:#0d1614;--card:#15221f;--ink:#e8f0ed;--mut:#93a7a1;--line:#28403a;--pri:#4fc4a6;--pri2:#173630;--bad:#ff8a80;--good:#5fd6a0}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Cairo',Tahoma,Arial,sans-serif;line-height:1.6;font-size:16px}
+header{background:var(--pri);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) header{color:#06201a}}
+header h1{font-size:19px;margin:0;font-weight:800;flex:1}
+header button{background:rgba(255,255,255,.18);color:inherit;border:0;border-radius:8px;padding:6px 12px;font:inherit;cursor:pointer}
+main{max-width:920px;margin:0 auto;padding:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.tile{background:var(--card);border:1px solid var(--line);border-inline-start:6px solid var(--pri);border-radius:12px;padding:16px;text-align:start;font:inherit;color:inherit;cursor:pointer;display:block;width:100%}
+.tile:hover,.tile:focus-visible{border-color:var(--pri);outline:2px solid var(--pri)}
+.tile b{display:block;font-size:18px;margin-bottom:2px}
+.tile span{color:var(--mut);font-size:14px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+h2{margin:0 0 12px;font-size:20px}
+h3{margin:0 0 8px;font-size:16px}
+label{display:block;font-weight:600;font-size:14px;margin:10px 0 4px}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px;min-height:44px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--pri);border-color:var(--pri)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:520px){.row{grid-template-columns:1fr}}
+.btn{background:var(--pri);color:#fff;border:0;border-radius:10px;padding:11px 18px;font:inherit;font-weight:700;cursor:pointer;min-height:44px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#06201a}}
+.btn.alt{background: #4fc4a6;color:var(--pri)}
+.btn.sm{padding:6px 12px;min-height:34px;font-size:14px}
+.back{background:none;border:0;color:var(--pri);font:inherit;font-weight:700;cursor:pointer;padding:6px 0;margin-bottom:8px}
+.days{display:grid;gap:8px;margin-top:8px}
+.day{display:grid;grid-template-columns:110px 1fr 1fr 70px;gap:8px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px}
+.day .dn{font-weight:700}.day .dn small{display:block;color:var(--mut);font-weight:400;font-size:12px}
+.day .hh{text-align:center;font-weight:800;color:var(--pri)}
+.day label{margin:0 0 2px;font-size:12px;color:var(--mut)}
+@media (max-width:560px){.day{grid-template-columns:1fr 1fr 60px}.day .dn{grid-column:1/-1}.day .hh{align-self:end;padding-bottom:8px}}
+.res{background:var(--pri2);border-radius:10px;padding:12px;margin-top:12px}
+.res div{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.res div:last-child{border:0}
+.res .big{font-size:20px;font-weight:800;color:var(--pri);padding-top:8px}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;border:1px solid var(--line);background:var(--bg);color:var(--ink);padding:9px;border-radius:8px;font:inherit;cursor:pointer}
+.seg button.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button.on{color:#06201a}}
+.note{color:var(--mut);font-size:13px;margin:6px 0 0}
+.log{border:1px solid var(--line);border-radius:10px;padding:10px;margin-top:8px;display:flex;gap:10px;justify-content:space-between;align-items:flex-start}
+.log p{margin:2px 0;white-space:pre-wrap}.log small{color:var(--mut)}
+.neg{color:var(--bad)}.pos{color:var(--good)}
+.hidden{display:none}
+.tp{display:flex;gap:4px}.tp select{padding:10px 4px;min-width:0;flex:1;text-align:center}
+.hero,#side{display:none}
+.tile i{font-style:normal;font-size:26px;display:none;margin-bottom:6px}
+@media (max-width:560px){.day .hh:before{content:'الساعات: ';font-weight:400;color:var(--mut)}.day .hh{text-align:start;padding:0}}
+@media (min-width:900px){
+#wrap{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:250px 1fr;gap:20px;padding:20px}
+#side{display:block;position:sticky;top:80px;align-self:start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px}
+#side button{display:block;width:100%;text-align:start;background:none;border:0;border-radius:10px;padding:12px;font:inherit;font-weight:600;color:var(--ink);cursor:pointer}
+#side button:hover{background:var(--pri2)}#side button.on{background:var(--pri);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) #side button.on{color:#06201a}}
+main{max-width:none;margin:0;padding:0}
+.hero{display:flex;justify-content:space-between;align-items:center;gap:20px;background:var(--pri);color:#fff;border-radius:16px;padding:28px;margin-bottom:16px}
+.hero h2{font-size:28px;margin:0 0 4px}.hero p{margin:0;opacity:.85}
+.stats{display:flex;gap:12px}.stats div{background:rgba(255,255,255,.16);border-radius:12px;padding:12px 18px;text-align:center;font-size:14px}.stats b{display:block;font-size:26px}
+.grid{grid-template-columns:repeat(3,1fr);gap:16px}
+.tile{padding:22px}.tile i{display:block}
+.panel{padding:22px}
+.back{display:none}
+#pc,#pr{max-width:560px}
+}
+@media (min-width:900px) and (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero{color:#06201a}}
+#hb{display:none;background:rgba(255,255,255,.18);color:inherit;border:0;border-radius:50%;width:38px;height:38px;font-size:24px;line-height:1;cursor:pointer;padding:0}
+@media (max-width:899px){
+header{border-radius:0 0 20px 20px;padding:14px}
+main{padding:14px 14px 28px}
+.in #hb{display:block}
+.back{display:none}
+.hero{display:block;background:var(--pri);color:#fff;border-radius:20px;padding:18px;margin-bottom:14px}
+.hero h2{font-size:22px;margin:0}.hero p{margin:2px 0 0;font-size:14px;opacity:.85}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.stats div{background:rgba(255,255,255,.16);border-radius:12px;padding:8px 4px;text-align:center;font-size:12px}
+.stats b{display:block;font-size:22px}
+.grid{grid-template-columns:repeat(2,1fr);gap:10px}
+.tile{text-align:center;padding:14px 10px;border-inline-start:1px solid var(--line);border-top:4px solid var(--pri);border-radius:16px}
+.tile i{display:block;font-size:30px;margin-bottom:4px}
+.tile b{font-size:15px;line-height:1.35}.tile span{font-size:12px;line-height:1.4;display:block;margin-top:2px}
+.panel{border-radius:16px;padding:14px}
+.btn:not(.sm){width:100%}
+}
+@media (max-width:359px){.grid{grid-template-columns:1fr}.tile span{display:none}.stats b{font-size:18px}}
+@media (max-width:899px) and (prefers-color-scheme:dark){:root:not([data-theme="light"]) .hero{color:#06201a}}
+:root[data-theme="dark"] .hero{color:#06201a}
+@media (max-width:1099px){
+.day{grid-template-columns:1fr;gap:10px;padding:12px}
+.day .dn{display:flex;justify-content:space-between;align-items:baseline;grid-column:auto}
+.day .dn small{display:inline;font-size:13px}
+.day label{font-size:13px;margin:0 0 4px}
+.day .tp select{font-size:16px;padding:10px 2px}
+.day>div{min-width:0}
+.day .hh{background:var(--pri2);border-radius:8px;padding:8px 12px;text-align:start;align-self:auto}
+.day .hh:before{content:'ساعات اليوم: ';font-weight:400;color:var(--mut)}
+}
+@media (min-width:600px) and (max-width:1099px){
+.day{grid-template-columns:1fr 1fr}
+.day .dn,.day .hh{grid-column:1/-1}
+}
+</style>
+</head>
+<body>
+<header><button id="hb" aria-label="رجوع">›</button><h1 id="ttl">حسابات الشركة</h1><button id="th" aria-label="الوضع">الوضع</button></header>
+<div id="wrap"><nav id="side"></nav><main id="app"></main></div>
+<script>
+var CARS=[["مصطفي 7816",[["الحج مصطفي",50],["الحج شريف",50]]],["العارجة 6472",[["الحج مصطفي",75],["محمد أبو ادهم (شريك)",25]]],["الحمرا 3543",[["الحج مصطفي",100]]],["العربيه الجديده 4962",[["الحج مصطفي",75],["محمد ناصر (شريك وسواق)",25]]],["الخضرا 3539",[["الحج مصطفي",50],["الحج شريف",50]]],["البيضا 9357",[["الحج مصطفي",50],["احمد عبدالغني (شريك وسواق)",50]]],["عربيه الحج محمود 8329",[["الحج محمود",100]]]];
+var DRIVERS=["احمد عبدالغني","مصطفي","ابراهيم","محمد ناصر","جمال","احمد الكارف","سمبل","احمد رمضان","اسلام عبدالظاهر","احمد رجب"];
+var WD=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+var $=function(s,r){return (r||document).querySelector(s)};
+var app=$('#app'),ttl=$('#ttl');
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function n(v){return parseFloat(v)||0}
+function fmt(v){return (Math.round(v*100)/100).toLocaleString('en-US')+' ج.م'}
+function fh(v){return (Math.round(v*100)/100)+' ساعة'}
+function opts(a){return a.map(function(x,i){return '<option value="'+i+'">'+esc(x)+'</option>'}).join('')}
+function today(){var d=new Date();return d.toISOString().slice(0,10)}
+var store={get:function(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}},set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+var BC=CARS.length,BD=DRIVERS.length;
+function syncX(){CARS.length=BC;DRIVERS.length=BD;store.get('xcars').forEach(function(c){CARS.push(c)});store.get('xdrv').forEach(function(d){DRIVERS.push(d)})}
+syncX();
+$('#hb').onclick=function(){home()};
+// theme
+$('#th').onclick=function(){var r=document.documentElement,d=r.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');r.setAttribute('data-theme',d==='dark'?'light':'dark')};
+
+var ITEMS=[["إيراد العربيات","احسب ساعات التشغيل والإيراد بعد المصروفات",function(){rev()},"🚛"],["راتب السواق","اليومية ٧٠٠ لـ ٨ ساعات والإضافي ٦٠ للساعة",function(){drv()},"🧑‍✈️"],["صافي ربح الشركاء","نصيب كل شريك حسب نسبته في العربية",function(){prof()},"📊"],["مصاريف العربيات","تسجيل مصاريف كل عربية",function(){logPage('exp','مصاريف العربيات',CARS.map(function(c){return c[0]}),'العربية')},"🔧"],["سلف السواقين","تسجيل السلف",function(){logPage('adv','سلف السواقين',DRIVERS,'السواق')},"💵"],["عهد السواقين","تسجيل العهد",function(){logPage('cus','عهد السواقين',DRIVERS,'السواق')},"📋"],["إضافة عربية أو سواق","سجّل عربية جديدة بنسب الشركاء أو سواق جديد",function(){manage()},"⚙️"]];
+function navDraw(){
+ $('#side').innerHTML=ITEMS.map(function(t,i){return '<button data-i="'+i+'" class="'+(t[0]===ttl.textContent?'on':'')+'">'+t[3]+' '+t[0]+'</button>'}).join('');
+ $('#side').querySelectorAll('button').forEach(function(b){b.onclick=function(){ITEMS[b.dataset.i][2]()}});
+}
+function home(){
+ document.body.classList.remove('in');ttl.textContent='حسابات الشركة';navDraw();
+ var saved=store.get('exp').length+store.get('adv').length+store.get('cus').length;
+ app.innerHTML='<div class="hero"><div><h2>أهلاً بيك</h2><p>اختار العملية من القايمة وابدأ الحساب</p></div><div class="stats"><div><b>'+CARS.length+'</b>عربيات</div><div><b>'+DRIVERS.length+'</b>سواقين</div><div><b>'+saved+'</b>سجلات محفوظة</div></div></div><div class="grid">'+ITEMS.map(function(t,i){return '<button class="tile" data-i="'+i+'"><i>'+t[3]+'</i><b>'+t[0]+'</b><span>'+t[1]+'</span></button>'}).join('')+'</div>';
+ app.querySelectorAll('.tile').forEach(function(b){b.onclick=function(){ITEMS[b.dataset.i][2]()}});
+}
+function shell(title,html){
+ document.body.classList.add('in');ttl.textContent=title;navDraw();
+ app.innerHTML='<button class="back" id="bk">‹ الرئيسية</button>'+html;
+ $('#bk').onclick=home;window.scrollTo(0,0);
+}
+// period + day table builder
+function periodHTML(){
+ return '<label>طريقة تحديد المدة</label><div class="seg" id="mode"><button class="on" data-m="c">عدد أيام</button><button data-m="r">من يوم لـ يوم</button></div>'+
+ '<div id="pc" class="row"><div><label>تاريخ أول يوم</label><input type="date" id="d0" value="'+today()+'"></div><div><label>عدد الأيام</label><input type="number" id="dn" min="1" max="62" value="7" inputmode="numeric"></div></div>'+
+ '<div id="pr" class="row hidden"><div><label>من تاريخ</label><input type="date" id="df" value="'+today()+'"></div><div><label>إلى تاريخ</label><input type="date" id="dt" value="'+today()+'"></div></div>'+
+ '<div style="margin-top:12px"><button class="btn alt" id="mk">اعرض الأيام</button></div><div class="days" id="days"></div>';
+}
+function bindPeriod(recalc){
+ var mode='c';
+ $('#mode').onclick=function(e){var m=e.target.dataset.m;if(!m)return;mode=m;this.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.m===m)});$('#pc').classList.toggle('hidden',m!=='c');$('#pr').classList.toggle('hidden',m!=='r')};
+ $('#mk').onclick=function(){
+  var s,cnt;
+  if(mode==='c'){s=new Date($('#d0').value);cnt=Math.round(n($('#dn').value))}
+  else{s=new Date($('#df').value);cnt=Math.round((new Date($('#dt').value)-s)/864e5)+1}
+  if(isNaN(s)||cnt<1||cnt>62){$('#days').innerHTML='<p class="neg">راجع التواريخ (من ١ إلى ٦٢ يوم)</p>';return}
+  var h='';
+  for(var i=0;i<cnt;i++){var d=new Date(s.getTime()+i*864e5);
+   h+='<div class="day"><div class="dn">'+WD[d.getUTCDay()]+'<small>'+d.toISOString().slice(0,10)+'</small></div><div><label>من الساعة</label>'+tp("tf")+'</div><div><label>إلى الساعة</label>'+tp("tt")+'</div><div class="hh">0</div></div>'}
+  $('#days').innerHTML=h;
+  $('#days').oninput=recalc;recalc();
+ };
+}
+function tp(c){
+ var h='<option value="">--</option>',m='';
+ for(var i=1;i<=12;i++)h+='<option value="'+i+'">'+i+'</option>';
+ for(i=0;i<60;i++)m+='<option value="'+i+'">'+(i<10?'0':'')+i+'</option>';
+ return '<div class="tp '+c+'"><select aria-label="الساعة">'+h+'</select><select aria-label="الدقيقة">'+m+'</select><select aria-label="ص/م"><option value="0">ص</option><option value="1">م</option></select></div>';
+}
+function tv(e){var q=e.querySelectorAll('select');if(!q[0].value)return null;return (+q[0].value%12+(+q[2].value?12:0))*60+ +q[1].value}
+function dayHours(){
+ var f=document.querySelectorAll('.tf'),t=document.querySelectorAll('.tt'),out=[];
+ f.forEach(function(x,i){var h=0,a=tv(x),b=tv(t[i]);if(a!==null&&b!==null){var m=b-a;if(m<0)m+=1440;h=m/60}
+  x.closest('.day').querySelector('.hh').textContent=Math.round(h*100)/100;out.push(h)});
+ return out;
+}
+function resBox(rows,big){
+ return '<div class="res">'+rows.map(function(r){return '<div><span>'+r[0]+'</span><b>'+r[1]+'</b></div>'}).join('')+'<div class="big"><span>'+big[0]+'</span><span>'+big[1]+'</span></div></div>';
+}
+// 1
+function rev(){
+ shell('إيراد العربيات','<div class="panel"><label>اسم العربية</label><select id="car">'+opts(CARS.map(function(c){return c[0]}))+'</select>'+periodHTML()+'</div>'+
+ '<div class="panel"><h3>السعر</h3><div class="row"><div><label>نوع السعر</label><select id="pt"><option value="h">سعر الساعة</option><option value="s">سعر الوردية / اليوم</option></select></div><div><label id="pl">سعر الساعة (ج.م)</label><input type="number" id="pv" inputmode="decimal" min="0"></div></div><div id="sh" class="hidden"><label>عدد ساعات الوردية</label><input type="number" id="sv" inputmode="decimal" value="12" min="1"></div><p class="note">لو أدخلت سعر الوردية يتحول تلقائياً لسعر ساعة = السعر ÷ ساعات الوردية.</p>'+
+ '<label>مصروفات العربية (اختياري)</label><input type="number" id="ex" inputmode="decimal" min="0" placeholder="0"><div id="out"></div></div>');
+ function calc(){
+  var hrs=dayHours().reduce(function(a,b){return a+b},0);
+  var s=$('#pt').value==='s';$('#sh').classList.toggle('hidden',!s);$('#pl').textContent=s?'سعر الوردية (ج.م)':'سعر الساعة (ج.م)';
+  var rate=s?n($('#pv').value)/(n($('#sv').value)||1):n($('#pv').value);
+  var gross=hrs*rate,ex=n($('#ex').value),net=gross-ex;
+  $('#out').innerHTML=resBox([['إجمالي الساعات',fh(hrs)],['سعر الساعة',fmt(rate)],['إجمالي الإيراد',fmt(gross)],['المصروفات',fmt(ex)]],['الإيراد بعد الخصم','<span class="'+(net<0?'neg':'')+'">'+fmt(net)+'</span>']);
+ }
+ bindPeriod(calc);
+ ['pt','pv','sv','ex'].forEach(function(i){$('#'+i).oninput=calc;$('#'+i).onchange=calc});calc();
+}
+// 2
+function drv(){
+ shell('راتب السواق','<div class="panel"><label>اسم السواق</label><select id="dr">'+opts(DRIVERS)+'</select>'+periodHTML()+'<p class="note">الأجر: ٧٠٠ ج.م لأول ٨ ساعات في اليوم، وكل ساعة زيادة ٦٠ ج.م. الأيام اللي مفيهاش ساعات لا تُحسب.</p></div>'+
+ '<div class="panel"><label>سلف السواق (اختياري)</label><input type="number" id="ad" inputmode="decimal" min="0" placeholder="0"><div id="out"></div></div>');
+ function calc(){
+  var hs=dayHours(),tot=0,work=0,ot=0,pay=0;
+  hs.forEach(function(h){if(h>0){work++;tot+=h;var o=Math.max(0,h-8);ot+=o;pay+=700+o*60}});
+  var ad=n($('#ad').value),net=pay-ad;
+  $('#out').innerHTML=resBox([['أيام العمل',work],['إجمالي الساعات',fh(tot)],['ساعات إضافي',fh(ot)],['إجمالي الراتب',fmt(pay)],['السلف',fmt(ad)]],['الراتب بعد خصم السلف','<span class="'+(net<0?'neg':'')+'">'+fmt(net)+'</span>']);
+ }
+ bindPeriod(calc);$('#ad').oninput=calc;calc();
+}
+// 3
+function prof(){
+ shell('صافي ربح الشركاء','<div class="panel"><label>اسم العربية</label><select id="car">'+opts(CARS.map(function(c){return c[0]}))+'</select><label>صافي ربح العربية (ج.م)</label><input type="number" id="np" inputmode="decimal" placeholder="0"><div id="dw" class="hidden"><label>عدد الأيام اللي العربية اشتغلتها (لحساب الحج شريف)</label><input type="number" id="dy" inputmode="numeric" min="0" placeholder="0"></div><div id="out"></div></div>');
+ function calc(){
+  var c=CARS[$('#car').value],np=n($('#np').value),hasS=c[1].some(function(p){return p[0]==='الحج شريف'});
+  $('#dw').classList.toggle('hidden',!hasS);
+  var rows=[],days=n($('#dy').value);
+  c[1].forEach(function(p){var sh=np*p[1]/100;
+   if(p[0]==='الحج شريف'){var v=days*500-sh;rows.push([p[0]+' ('+p[1]+'%)<br><small style="font-weight:400;color:var(--mut)">'+days+' × 500 − '+fmt(sh)+'</small>','<span class="'+(v<0?'neg':'')+'">'+fmt(v)+'</span>'])}
+   else rows.push([p[0]+' ('+p[1]+'%)',fmt(sh)]);
+  });
+  $('#out').innerHTML='<div class="res">'+rows.map(function(r){return '<div><span>'+r[0]+'</span><b>'+r[1]+'</b></div>'}).join('')+'</div>';
+ }
+ ['car','np','dy'].forEach(function(i){$('#'+i).oninput=calc;$('#'+i).onchange=calc});calc();
+}
+// manage
+function manage(){
+ var ow=['الحج مصطفي','الحج شريف','محمد أبو ادهم (شريك)','احمد عبدالغني (شريك وسواق)','محمد ناصر (شريك وسواق)','الحج محمود'];
+ shell('إضافة عربية أو سواق','<datalist id="ow">'+ow.map(function(o){return '<option value="'+esc(o)+'">'}).join('')+'</datalist>'+
+ '<div class="panel"><h2>عربية جديدة</h2><label>اسم العربية ورقمها</label><input id="cn" placeholder="مثال: الزرقا 1234">'+
+ '<label>الشركاء ونسبهم</label><div id="pl"></div><div style="display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap"><button class="btn alt sm" id="ap">+ شريك</button><b id="tot"></b></div>'+
+ '<p class="note">مجموع النسب لازم يبقى ١٠٠٪. لو كتبت اسم الحج شريف بالظبط (الحج شريف) هتتطبق عليه حسبة الـ ٥٠٠ جنيه في اليوم.</p><p class="neg" id="msg"></p><button class="btn" id="sc">حفظ العربية</button></div>'+
+ '<div class="panel"><h2>سواق جديد</h2><label>اسم السواق</label><input id="dn2" placeholder="اسم السواق"><div style="margin-top:10px"><button class="btn" id="sd">حفظ السواق</button></div></div>'+
+ '<div class="panel"><h3>اللي أضفته</h3><div id="xl"></div></div>');
+ function tot(){var t=0;document.querySelectorAll('.pp').forEach(function(x){t+=n(x.value)});$('#tot').textContent='المجموع: '+t+'٪';$('#tot').className=Math.abs(t-100)<.01?'pos':'neg';return t}
+ function addRow(){var d=document.createElement('div');d.style.cssText='display:grid;grid-template-columns:2fr 1fr auto;gap:6px;margin-top:6px';
+  d.innerHTML='<input class="pn" list="ow" placeholder="اسم الشريك"><input class="pp" type="number" inputmode="decimal" min="0" max="100" placeholder="٪"><button class="btn alt sm" aria-label="حذف">×</button>';
+  d.querySelector('button').onclick=function(){d.remove();tot()};d.oninput=tot;$('#pl').appendChild(d);tot()}
+ addRow();$('#ap').onclick=addRow;
+ $('#sc').onclick=function(){
+  var name=$('#cn').value.trim(),ps=[],ok=true;
+  document.querySelectorAll('#pl > div').forEach(function(r){var a=r.querySelector('.pn').value.trim(),b=n(r.querySelector('.pp').value);if(!a||b<=0)ok=false;ps.push([a,b])});
+  var m=$('#msg');
+  if(!name){m.textContent='اكتب اسم العربية';return}
+  if(CARS.some(function(c){return c[0]===name})){m.textContent='العربية دي موجودة بالفعل';return}
+  if(!ps.length||!ok){m.textContent='اكمل اسم كل شريك ونسبته';return}
+  if(Math.abs(tot()-100)>.01){m.textContent='مجموع النسب لازم يساوي ١٠٠٪';return}
+  var a=store.get('xcars');a.push([name,ps]);store.set('xcars',a);syncX();manage();
+ };
+ $('#sd').onclick=function(){var v=$('#dn2').value.trim();if(!v||DRIVERS.indexOf(v)>-1){$('#dn2').focus();return}var a=store.get('xdrv');a.push(v);store.set('xdrv',a);syncX();manage()};
+ var xc=store.get('xcars'),xd=store.get('xdrv');
+ $('#xl').innerHTML=(xc.length||xd.length)?xc.map(function(c,i){return '<div class="log"><div><b>🚛 '+esc(c[0])+'</b><p>'+c[1].map(function(p){return esc(p[0])+' '+p[1]+'٪'}).join(' — ')+'</p></div><button class="btn alt sm" data-k="c" data-i="'+i+'">حذف</button></div>'}).join('')+xd.map(function(d,i){return '<div class="log"><div><b>🧑‍✈️ '+esc(d)+'</b></div><button class="btn alt sm" data-k="d" data-i="'+i+'">حذف</button></div>'}).join(''):'<p class="note">لسه ما أضفتش حاجة.</p>';
+ $('#xl').querySelectorAll('button').forEach(function(b){b.onclick=function(){var k=b.dataset.k==='c'?'xcars':'xdrv',a=store.get(k);a.splice(b.dataset.i,1);store.set(k,a);syncX();manage()}});
+}
+// 4-6
+function logPage(key,title,names,lbl){
+ shell(title,'<div class="panel"><label>'+lbl+'</label><select id="nm">'+opts(names)+'</select><label>التفاصيل (اكتب اللي اتصرف)</label><textarea id="tx" rows="3" placeholder="مثال: تغيير زيت ٣٥٠ ج.م"></textarea><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn" id="sv">حفظ</button><button class="btn alt" id="cp">نسخ الكل</button></div></div><div class="panel"><h3>السجل</h3><div id="ls"></div></div>');
+ function draw(){
+  var a=store.get(key);
+  $('#ls').innerHTML=a.length?a.map(function(r,i){return '<div class="log"><div><b>'+esc(r.n)+'</b> <small>'+esc(r.d)+'</small><p>'+esc(r.t)+'</p></div><button class="btn alt sm" data-i="'+i+'">حذف</button></div>'}).reverse().join(''):'<p class="note">لا توجد سجلات بعد. اكتب أول تفصيلة واضغط حفظ.</p>';
+  $('#ls').querySelectorAll('button').forEach(function(b){b.onclick=function(){var a=store.get(key);a.splice(b.dataset.i,1);store.set(key,a);draw()}});
+ }
+ $('#sv').onclick=function(){var t=$('#tx').value.trim();if(!t){$('#tx').focus();return}var a=store.get(key);a.push({n:names[$('#nm').value],t:t,d:today()});store.set(key,a);$('#tx').value='';draw()};
+ $('#cp').onclick=function(){var s=store.get(key).map(function(r){return r.d+' | '+r.n+' | '+r.t}).join('\n');var ta=document.createElement('textarea');ta.value=s;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');$('#cp').textContent='تم النسخ'}catch(e){$('#cp').textContent='تعذر النسخ'}ta.remove();setTimeout(function(){$('#cp').textContent='نسخ الكل'},1500)};
+ draw();
+}
+home();
+</script>
+</body>
+</html>
